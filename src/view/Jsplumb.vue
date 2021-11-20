@@ -8,7 +8,7 @@ import {jsPlumb} from 'jsplumb'
 export default { 
     data() {
         return {
-            Jsplumb: 'Jsplumb'
+            Jsplumb: 'Jsplumb1'
         }
     },
     mounted() {
