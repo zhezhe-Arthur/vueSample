@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to='/Jsplumb'>Jsplumb</router-link><br/>
+        <router-link to='/figureNodeList'>节点图</router-link><br/>
         <div class="row"></div>
         <router-link to='/calculation'>计算器</router-link>
     </div>
