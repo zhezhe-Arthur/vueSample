@@ -74,8 +74,7 @@ export default {
                             id=nodeId'`+ 1 +`'>
                             <span>`+ this.rowOnly.name +`</span>
                         </div> `           
-            // node.innerHTML = dom
-            node.appendChild(this.dom )
+            node.append(this.dom )
             var plumbIns = jsPlumb.getInstance();
             plumbIns.ready(function () {
                 plumbIns.connect({
