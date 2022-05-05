@@ -1,5 +1,9 @@
 <template>
     <div>
+        <!-- <div id="diagramContainer">
+            <div id="item_left" class="item"></div>
+            <div id="item_right" class="item" style="left:150px;"></div>
+        </div> -->
         <div class="content">
             <el-row>
                 <el-col :span="5">
@@ -44,56 +48,55 @@ export default {
             plumbIns: null,
             nodeId: 'nodeId',
             rowOnly: {},
-            nodeList: [
-            ]
+            numId: 0,
+            nodeList: []
         }
     },
     mounted() {
+        this.dee()
         for (let index = 0; index < 12; index++) {
             var num = index + 1
             this.nodeList.push({ name: '节点'+ num +'', id: num })
         }
     },
     methods: {
+        dee() {
+            jsPlumb.ready(function () {
+                jsPlumb.draggable('item_left')
+                jsPlumb.draggable('item_right')
+            })
+        },
         dragstartFn(ev, item) {
-            this.dom = ev.currentTarget.cloneNode(true)   
+            // this.dom = ev.currentTarget.cloneNode(true)   
             this.rowOnly = item 
         },
         dragoverFn(ev) {
             ev.preventDefault()
         },
         dropFn(ev) {
-            console.log(ev);
-            let x = ev.layerX - 15
-            let y = ev.layerY - 15
-            let domOperator = `<div style='width: 40px;
-                                    position: absolute;
-                                    left: `+ x +`px;
-                                    top: `+ y +`px;
-                                    height: 40px;
-                                    border: solid .0125rem slategrey;
-                                    margin: 10px;
-                                    font-size: .00625rem;
-                                    display: inline-block;
-                                    cursor: pointer;
-                            id=nodeId'>
-                            <span>`+ this.rowOnly['name'] +`</span>
+            let $that = this
+            let x = ev.layerX
+            let y = ev.layerY
+            let nodeId = "nodeId" + this.numId
+            let domOperator = `<div
+                                id=${nodeId}'
+                                draggable="false"
+                                style='width: 40px;
+                                position: absolute;
+                                left: ${x}px;
+                                top: ${y}px;
+                                height: 40px;
+                                border: solid .0125rem slategrey;
+                                margin: 10px;
+                                font-size: .00625rem;
+                                cursor: pointer'>
+                            <span>${this.rowOnly['name']}</span>
                         </div> ` 
             $("#nodeEditId").append(domOperator)
-            var plumbIns = jsPlumb.getInstance();
-            plumbIns.ready(function () {
-                plumbIns.connect({
-                    source: 'nodeId1',
-                    target: 'nodeId',
-                    anchor: ['Left', 'Right', 'Top', 'Bottom', [0.3, 0, 0, -1], [0.7, 0, 0, -1], [0.3, 1, 0, 1], [0.7, 1, 0, 1]],
-                    connector: ['StateMachine'],
-                    endpoint: 'Blank',
-                    overlays: [ ['Arrow', { width: 8, length: 8, location: 1 }] ], // overlay
-                    // 添加样式
-                    paintStyle: { stroke: '#909399', strokeWidth: 2 }, // connector
-                    // endpointStyle: { fill: '#909399', outlineStroke: '#606266', outlineWidth: 1 } // endpoint
-                })
+            jsPlumb.ready(function () {
+                jsPlumb.draggable(nodeId)
             })
+            this.numId++
         }
     },
 }
@@ -120,5 +123,18 @@ export default {
         cursor: pointer;
         left: 10px;
  
+    }
+    #diagramContainer {
+      padding: 20px;
+      width: 80%;
+      height: 400px;
+      border: 1px solid gray;
+    }
+
+    .item {
+      position: absolute;
+      height: 80px;
+      width: 80px;
+      border: 1px solid blue;
     }
 </style>
