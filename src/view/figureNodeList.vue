@@ -74,12 +74,11 @@ export default {
             ev.preventDefault()
         },
         dropFn(ev) {
-            let $that = this
             let x = ev.layerX
             let y = ev.layerY
             let nodeId = "nodeId" + this.numId
             let domOperator = `<div
-                                id=${nodeId}'
+                                id=${nodeId}
                                 draggable="false"
                                 style='width: 40px;
                                 position: absolute;
@@ -93,9 +92,12 @@ export default {
                             <span>${this.rowOnly['name']}</span>
                         </div> ` 
             $("#nodeEditId").append(domOperator)
-            jsPlumb.ready(function () {
-                jsPlumb.draggable(nodeId)
-            })
+            this.jsPlumbFn(nodeId)
+        },
+        jsPlumbFn(nodeId) {
+            jsPlumb.draggable(nodeId, {
+                containment: 'nodeEditId'
+            })           
             this.numId++
         }
     },
