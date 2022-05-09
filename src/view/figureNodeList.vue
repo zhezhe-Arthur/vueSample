@@ -1,50 +1,43 @@
 <template>
     <div>
-        <!-- <div id="diagramContainer">
-            <div id="item_left" class="item"></div>
-            <div id="item_right" class="item" style="left:150px;"></div>
-        </div> -->
         <div class="content">
-            <el-row>
-                <el-col :span="5">
-                    <div class="listNode">
-                        <div class="nodeOlay"
-                            draggable="true"
-                            @dragstart="dragstartFn($event, item)"
-                            v-for="(item, index) in nodeList" 
-                            :key="index">
-                            <span>{{item.name}}</span>
-                        </div>      
-                    </div>
-                </el-col>
-                <el-col :span="18">
-                    <div class="listNodeEdit"
-                        @dragover="dragoverFn"
-                        @drop="dropFn"
-                        id="nodeEditId">
-                    </div>
-                </el-col>
-            </el-row>
+            <div class="listNode">
+                <div class="nodeOlay"
+                    draggable="true"
+                    @dragstart="dragstartFn($event, item)"
+                    v-for="(item, index) in nodeList" 
+                    :key="index">
+                    <img :src="a1" style="width:100%; height:100%">
+                    <div>{{item.name}}</div>
+                </div>      
+            </div>
+            <div class="listNodeEdit"
+                @dragover="dragoverFn"
+                @drop="dropFn"
+                id="nodeEditId">
+            </div>
         </div>
-        <el-row>
-            <el-col :span="24">
-                <div>
-                    <el-button>返回</el-button>
-                    <el-button type="primary">保存</el-button>
-                </div>
-            </el-col>
-        </el-row>
+        <!-- <div class="opert">
+            <el-button>返回</el-button>
+            <el-button type="primary">保存</el-button>
+        </div> -->
     </div>
 </template>
 <script>
 import { jsPlumb } from 'jsplumb'
 import $ from 'jquery'
+import a1 from "@/assets/image/1.png"
+import a2 from "@/assets/image/2.png"
+import a3 from "@/assets/image/3.png"
 export default {
     props: {
         rowData: Object
     },
     data() {
         return {
+            a1: a1,
+            a2: a2,
+            a3: a3,
             plumbIns: null,
             nodeId: 'nodeId',
             rowOnly: {},
@@ -53,21 +46,14 @@ export default {
         }
     },
     mounted() {
-        this.dee()
-        for (let index = 0; index < 12; index++) {
+        for (let index = 0; index < 3; index++) {
             var num = index + 1
             this.nodeList.push({ name: '节点'+ num +'', id: num })
         }
     },
     methods: {
-        dee() {
-            jsPlumb.ready(function () {
-                jsPlumb.draggable('item_left')
-                jsPlumb.draggable('item_right')
-            })
-        },
         dragstartFn(ev, item) {
-            // this.dom = ev.currentTarget.cloneNode(true)   
+            this.srcImg = ev.path[0].src || ""
             this.rowOnly = item 
         },
         dragoverFn(ev) {
@@ -89,7 +75,9 @@ export default {
                                 margin: 10px;
                                 font-size: .00625rem;
                                 cursor: pointer'>
-                            <span>${this.rowOnly['name']}</span>
+                            <img src="${this.srcImg}"
+                                style="width:100%; height:100%">
+                            <div>${this.rowOnly['name']}</div>
                         </div> ` 
             $("#nodeEditId").append(domOperator)
             this.jsPlumbFn(nodeId)
@@ -105,15 +93,26 @@ export default {
 </script>
 <style scoped>
     .listNode{
+        display: inline-block;
         height: 800px;
         background: #f0f0f0;
+        width: 20%;
+        position: absolute;
+        left: 0;
     }
     .listNodeEdit{
         height: 800px;
+        width: 70%;
         border: gray 1px solid;
+        display: inline-block;
+        position: absolute;
+        left: 20%;
     }
     .content{
         padding: 20px 0 10px 50px;
+    }
+    .opert {
+        display: block;
     }
     .nodeOlay{
         width: 40px;
