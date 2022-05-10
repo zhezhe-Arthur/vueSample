@@ -7,7 +7,7 @@
                     @dragstart="dragstartFn($event, item)"
                     v-for="(item, index) in nodeList" 
                     :key="index">
-                    <img :src="a1" style="width:100%; height:100%">
+                    <img :src="`./static/image/${index+1}.png`" style="width:100%; height:100%">
                     <div>{{item.name}}</div>
                 </div>      
             </div>
@@ -26,18 +26,13 @@
 <script>
 import { jsPlumb } from 'jsplumb'
 import $ from 'jquery'
-import a1 from "@/assets/image/1.png"
-import a2 from "@/assets/image/2.png"
-import a3 from "@/assets/image/3.png"
+
 export default {
     props: {
         rowData: Object
     },
     data() {
         return {
-            a1: a1,
-            a2: a2,
-            a3: a3,
             plumbIns: null,
             nodeId: 'nodeId',
             rowOnly: {},
@@ -46,7 +41,7 @@ export default {
         }
     },
     mounted() {
-        for (let index = 0; index < 3; index++) {
+        for (let index = 0; index < 10; index++) {
             var num = index + 1
             this.nodeList.push({ name: '节点'+ num +'', id: num })
         }
@@ -102,7 +97,7 @@ export default {
     }
     .listNodeEdit{
         height: 800px;
-        width: 70%;
+        width: 62.5rem;
         border: gray 1px solid;
         display: inline-block;
         position: absolute;
