@@ -25,6 +25,8 @@
 </template>
 <script>
 import { jsPlumb } from 'jsplumb'
+import jsPlumbJs from '@/assets/js/figureNodeList.js'
+
 import $ from 'jquery'
 
 export default {
@@ -75,14 +77,8 @@ export default {
                             <div>${this.rowOnly['name']}</div>
                         </div> ` 
             $("#nodeEditId").append(domOperator)
-            this.jsPlumbFn(nodeId)
+            jsPlumbJs.jsPlumbFn(nodeId, jsPlumb, this)
         },
-        jsPlumbFn(nodeId) {
-            jsPlumb.draggable(nodeId, {
-                containment: 'nodeEditId'
-            })           
-            this.numId++
-        }
     },
 }
 </script>
@@ -118,7 +114,6 @@ export default {
         display: inline-block;
         cursor: pointer;
         left: 10px;
- 
     }
     #diagramContainer {
       padding: 20px;
