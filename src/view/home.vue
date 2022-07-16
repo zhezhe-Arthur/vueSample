@@ -3,9 +3,10 @@
         <router-link to='/figureNodeList'>节点图</router-link><br/>
         <div class="row"></div>
         <router-link to='/calculation'>计算器</router-link>
-        <div style="margin-top: 20px">
-            <button @click='urlParameterFn("status")'>url取参数</button>
-        </div>   
+        <div class="row"></div>
+        <button @click='urlParameterFn("status")'>url取参数</button>
+        <div class="row"></div>
+        <router-link to='/tableTest'>表格</router-link> 
     </div>
 </template>
 <script>
