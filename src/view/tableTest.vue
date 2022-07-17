@@ -38,6 +38,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin-top: 20px">
+      <el-button type="primary" @click="getTableDataFn">确定</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -119,6 +122,12 @@ export default {
         }
       }
       return true
+    },
+    getTableDataFn() {
+      for (let i = 0; i < this.tableData.length; i++) { 
+        console.log("selection:",this.tableData[i].selection);
+        console.log("pass:",this.tableData[i].pass);        
+      }
     }
   }
 }
