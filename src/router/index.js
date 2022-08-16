@@ -4,6 +4,7 @@ import home from '@/view/home'
 import figureNodeList from '@/view/figureNodeList'
 import calculation from '@/view/calculation'
 import tableTest from '@/view/tableTest'
+import selfAdaption from '@/view/selfAdaption'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/tableTest',
       name: 'tableTest',
       component: tableTest
-    }
+    },
+    {
+      path: '/selfAdaption',
+      name: 'selfAdaption',
+      component: selfAdaption
+    },
   ]
 })

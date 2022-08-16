@@ -6,7 +6,9 @@
         <div class="row"></div>
         <button @click='urlParameterFn("status")'>url取参数</button>
         <div class="row"></div>
-        <router-link to='/tableTest'>表格</router-link> 
+        <router-link to='/tableTest'>表格</router-link>
+        <div class="row"></div>
+        <router-link to='/selfAdaption'>自适应</router-link> 
     </div>
 </template>
 <script>
